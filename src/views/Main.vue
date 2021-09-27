@@ -38,10 +38,8 @@ export default ({
         }
     },
     mounted(){
-        
         document.querySelectorAll('.programBox').forEach(e=>{
             e.addEventListener('mousedown',e=>{
-                // console.log(e);
                 this.mouse.x = e.screenX;
                 this.mouse.y = e.screenY;
                 this.mousedown = true;
@@ -51,29 +49,32 @@ export default ({
                 else{
                     this.node = e.toElement;
                 }
-                // console.log(this.node.offsetTop)
                 this.nodeStartPosition.x = this.node.offsetLeft;
                 this.nodeStartPosition.y = this.node.offsetTop;
-                // console.log(node.offsetTop, node.offsetLeft,node.offsetHeight );
             })
             e.addEventListener('mouseleave',e=>{
                 if(this.mousedown && this.node){
                     window.addEventListener('mousemove',e=>{
                         if(this.mousedown && this.node){
                             this.windowListener = true;
-                            // console.log(e.screenX)
                             this.node.classList.add('fixed');
                             this.nodePosition.x = e.screenX - 50;
                             this.nodePosition.y = e.screenY - 145;
                             this.node.style.left = this.nodePosition.x + 'px';
                             this.node.style.top = this.nodePosition.y  + 'px';
-                            // console.log('ss');
                         }
                     }); 
                 }
             })
-            e.addEventListener('mouseup',e=>{
-                if(this.mousedown && this.node){
+
+
+
+            e.addEventListener('mouseup',this.mouseDrag);
+        })
+    },
+    methods:{
+        mouseDrag(){
+            if(this.mousedown && this.node){
                     if(this.windowListener){
                         this.windowListener = null;
                     }
@@ -81,39 +82,30 @@ export default ({
                     let overlap = false;
                     allNode.forEach(e=>{
                         if(e.id !== this.node.id){
-                            console.log('1',e.id,e.offsetTop,e.offsetLeft,e.offsetWidth,e.offsetHeight)
-                            console.log('2',this.node.offsetTop,this.node.offsetLeft,this.node.offsetWidth,this.node.offsetHeight)
-
+                        
                             if( (e.offsetLeft < this.node.offsetLeft &&  e.offsetLeft + e.offsetWidth > this.node.offsetLeft) ||  (e.offsetLeft < this.node.offsetLeft + this.node.offsetWidth &&  e.offsetLeft + e.offsetWidth > this.node.offsetLeft +this.node.offsetWidth)){
                                 if((e.offsetTop < this.node.offsetTop &&  e.offsetTop + e.offsetHeight > this.node.offsetTop) || (e.offsetTop < this.node.offsetTop + this.node.offsetHeight  &&  e.offsetTop + e.offsetHeight > this.node.offsetTop + this.node.offsetHeight)){
                                     overlap = true;
                                 }
                             }
 
-
-
                         }
                     })
 
-
-                    if(overlap){
-                        console.log('df');
-                            this.node.style.left = this.nodeStartPosition.x + 'px';
-                            this.node.style.top = this.nodeStartPosition.y  + 'px';
+                    if(this.node.offsetLeft <0 || this.node.offsetTop <0 || this.node.offsetLeft+this.node.offsetWidth > document.body.clientWidth || this.node.offsetTop+this.node.offsetHeight > document.body.clientHeight -40 ){
+                        overlap = true;
                     }
 
 
+                    if(overlap){
+                        this.node.style.left = this.nodeStartPosition.x + 'px';
+                        this.node.style.top = this.nodeStartPosition.y  + 'px';
+                    }
 
                     overlap = false;
                     this.mousedown = false;
                     this.node = null;
                 }
-            })
-        })
-    },
-    methods:{
-        aa(){
-            console.log('ss');
         }
     }
 })
@@ -145,6 +137,10 @@ export default ({
         width: 100%;
         text-align: center;
         cursor: default;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -o-user-select:none;
+        user-select:none;
     }
     .fixed{
         position: fixed;
