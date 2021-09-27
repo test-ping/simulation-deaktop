@@ -81,16 +81,23 @@ export default ({
     },
     methods:{
         openProgram(data){
-
-            data.width = '800px';
-            data.height = '400px';
-            data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
-            data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
-            data.showWindow = true;
-
-
-
-            this.$store.commit('ADD_PROGRAM',data);
+            let index =null;
+            if(this.programmed.length!==0){
+                index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
+                // console.log(index);
+            }
+            if(index === -1 || index === null){
+                data.width = '800px';
+                data.height = '400px';
+                data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
+                data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
+                data.showWindow = true;
+                this.$store.commit('ADD_PROGRAM',data);
+            }
+            else{
+                this.$store.commit('SHOW_WINDOW',index);
+            }
+            
         },
         mouseDrag(){
             if(this.mousedown && this.node){

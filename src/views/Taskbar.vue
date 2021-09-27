@@ -6,7 +6,7 @@
         <div class='taskbar'>
             <button @click="openList"><i class="fab fa-windows"></i></button>
             <div v-if='programmed.length !== 0' class='programList'>
-                <div v-for="item of programmed">
+                <div v-for="item of programmed" @click='toogleProgram(item)'>
                     <i :class='item.icon'></i> 
                 </div>    
             </div>
@@ -54,12 +54,32 @@ export default ({
            }
        },
        openProgram(data){
-           this.listState = false;
-           if(this.programmed.filter(e=>e.key === data.key).length ===0){
-               this.$store.commit('ADD_PROGRAM',data);
+            this.listState = false;
+
+            let index =null;
+            if(this.programmed.length!==0){
+                index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
+            }
+            if(index === -1 || index === null){
+                data.width = '800px';
+                data.height = '400px';
+                data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
+                data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
+                data.showWindow = true;
+                this.$store.commit('ADD_PROGRAM',data);
+            }
+            else{
+                this.$store.commit('SHOW_WINDOW',index);
+            }
+
+       },
+       toogleProgram(data){
+           let index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
+           if(this.programmed[index].showWindow){
+               this.$store.commit('NARROW_WINDOW',data.key)
            }
            else{
-
+               this.$store.commit('SHOW_WINDOW',index)
            }
        }
    },

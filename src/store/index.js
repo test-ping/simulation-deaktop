@@ -18,7 +18,11 @@ export default new Vuex.Store({
     NARROW_WINDOW(state,payload){
       let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload);
       state.RunningProgram[index].showWindow = false;
-    }
+    },
+    SHOW_WINDOW(state,payload){
+      state.RunningProgram[payload].showWindow = true;
+    },
+    
   },
   actions: {
   },

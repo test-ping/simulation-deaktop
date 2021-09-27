@@ -1,12 +1,22 @@
 <template>
     <div>
         <ul>
-            <li @click="openProgram({key:'IE',icon:'fab fa-internet-explorer'})">
-                <i class="fab fa-internet-explorer"></i> internet-explorer 
+            <li @click="openProgram({key:'myComputer',icon:'fas fa-laptop-code',name:'我的電腦'})">
+                <i class="fas fa-laptop-code"></i> 我的電腦
             </li>
-            <li @click="openProgram({key:'word',icon:'fas fa-file-word'})">
+            <li @click="openProgram({key:'IE',icon:'fab fa-internet-explorer',name:'網頁瀏覽器'})">
+                <i class="fab fa-internet-explorer"></i> 網頁瀏覽器
+            </li>
+            <li @click="openProgram({key:'word',icon:'fas fa-file-word',name:'文字編輯器'})">
                 <i class="fas fa-file-word"></i> 文字編輯器
             </li>
+            <li @click="openProgram({key:'setDesktop',icon:'fas fa-cog',name:'桌面設定'})">
+                <i class="fas fa-cog"></i> 桌面設定
+            </li>
+            <li @click="openProgram({key:'Music',icon:'fas fa-play-circle',name:'音樂撥放器'})">
+                <i class="fas fa-play-circle"></i> 音樂撥放器
+            </li>
+
         </ul>
     </div>
 </template>
@@ -33,9 +43,9 @@ export default ({
         color: deepskyblue;
         width:25px;
     }
-    ul li:nth-child(2) i{
+    ul li:nth-child(3) i{
         margin-left: 3px;
-        margin-right: -3p[];
+        margin-right: -3px;
     }
     li{
         margin-left: 5px;
