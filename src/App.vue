@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id='main'>
-      <!-- <button @click='add'>++</button> -->
+      <MainDesktop></MainDesktop>
     </div>
     <div id='taskbar'>
       <Taskbar></Taskbar>
@@ -10,16 +10,18 @@
 </template>
 
 <script>
+import MainDesktop from '@/views/Main.vue';
 
 import Taskbar from '@/views/Taskbar.vue';
 export default ({
   methods:{
-    add(){
-      this.$store.commit('ADD_PROGRAMMED', Math.random());
-    },
+    // add(){
+    //   this.$store.commit('ADD_PROGRAMMED', Math.random());
+    // },
   },
   components:{
     Taskbar,
+    MainDesktop
   },
 })
 </script>
