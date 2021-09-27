@@ -1,6 +1,6 @@
 <template>
     <div id='main'>
-        <div v-for="item,index of program" class='programBox' :style="{top:item.initialPosition}">
+        <div v-for="item,index of program" class='programBox' :style="{top:item.initialPosition}" :id='item.key'>
             <i :class='item.icon' ></i>
             <p>{{item.name}}</p>
         </div>
@@ -15,10 +15,10 @@ export default ({
         return{
             program:[
                 {name:'我的電腦',icon:'fas fa-laptop-code',key:'myComputer',initialPosition:'0px'},
-                {name:'音樂撥放器',icon:'fas fa-play-circle',initialPosition:'95px'},   
-                {name:'桌面設定',icon:'fas fa-cog',initialPosition:'190px'},                
-                {name:'internet-explorer',icon:'fab fa-internet-explorer',initialPosition:'285px'},
-                {name:'文字編輯器',icon:'fas fa-file-word',initialPosition:'380px'},
+                {name:'音樂撥放器',icon:'fas fa-play-circle',key:'music',initialPosition:'95px'},   
+                {name:'桌面設定',icon:'fas fa-cog',key:'setDesktop',initialPosition:'190px'},                
+                {name:'internet-explorer',icon:'fab fa-internet-explorer',key:'IE',initialPosition:'285px'},
+                {name:'文字編輯器',icon:'fas fa-file-word',key:'word',initialPosition:'380px'},
             ],
             mouse:{
                 x:0,
@@ -51,7 +51,7 @@ export default ({
                 else{
                     this.node = e.toElement;
                 }
-                console.log(this.node.offsetTop)
+                // console.log(this.node.offsetTop)
                 this.nodeStartPosition.x = this.node.offsetLeft;
                 this.nodeStartPosition.y = this.node.offsetTop;
                 // console.log(node.offsetTop, node.offsetLeft,node.offsetHeight );
@@ -67,7 +67,7 @@ export default ({
                             this.nodePosition.y = e.screenY - 145;
                             this.node.style.left = this.nodePosition.x + 'px';
                             this.node.style.top = this.nodePosition.y  + 'px';
-                            console.log('ss');
+                            // console.log('ss');
                         }
                     }); 
                 }
@@ -75,9 +75,36 @@ export default ({
             e.addEventListener('mouseup',e=>{
                 if(this.mousedown && this.node){
                     if(this.windowListener){
-                        // window.removeEventListener('mousemove');
                         this.windowListener = null;
                     }
+                    let allNode = document.querySelectorAll('.programBox');
+                    let overlap = false;
+                    allNode.forEach(e=>{
+                        if(e.id !== this.node.id){
+                            console.log('1',e.id,e.offsetTop,e.offsetLeft,e.offsetWidth,e.offsetHeight)
+                            console.log('2',this.node.offsetTop,this.node.offsetLeft,this.node.offsetWidth,this.node.offsetHeight)
+
+                            if( (e.offsetLeft < this.node.offsetLeft &&  e.offsetLeft + e.offsetWidth > this.node.offsetLeft) ||  (e.offsetLeft < this.node.offsetLeft + this.node.offsetWidth &&  e.offsetLeft + e.offsetWidth > this.node.offsetLeft +this.node.offsetWidth)){
+                                if((e.offsetTop < this.node.offsetTop &&  e.offsetTop + e.offsetHeight > this.node.offsetTop) || (e.offsetTop < this.node.offsetTop + this.node.offsetHeight  &&  e.offsetTop + e.offsetHeight > this.node.offsetTop + this.node.offsetHeight)){
+                                    overlap = true;
+                                }
+                            }
+
+
+
+                        }
+                    })
+
+
+                    if(overlap){
+                        console.log('df');
+                            this.node.style.left = this.nodeStartPosition.x + 'px';
+                            this.node.style.top = this.nodeStartPosition.y  + 'px';
+                    }
+
+
+
+                    overlap = false;
                     this.mousedown = false;
                     this.node = null;
                 }
