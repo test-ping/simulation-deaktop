@@ -3,13 +3,18 @@
         <div class='list' v-show='listState'>
             <List @openProgram='openProgram'></List>
         </div>
-        <button @click="openList"><i class="fab fa-windows"></i></button>
-        <ul v-if='programmed.length !== 0'>
-            <!-- <li v-for="item of programmed"></li>     -->
-        </ul>
-        <div class='time'>
-            {{time}}
+        <div class='taskbar'>
+            <button @click="openList"><i class="fab fa-windows"></i></button>
+            <div v-if='programmed.length !== 0' class='programList'>
+                <div v-for="item of programmed">
+                    <i :class='item.icon'></i> 
+                </div>    
+            </div>
+            <div class='time'>
+                {{time}}
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -48,13 +53,19 @@ export default ({
                this.listState = true;
            }
        },
-       openProgram(val){
+       openProgram(data){
            this.listState = false;
+           if(this.programmed.filter(e=>e.key === data.key).length ===0){
+               this.$store.commit('ADD_PROGRAMMED',data);
+           }
+           else{
+
+           }
        }
    },
    computed:{
        programmed(){
-           return this.$store.state.programmedList; 
+           return this.$store.state.RunningProgram; 
        },
    },
    components:{
@@ -67,10 +78,7 @@ export default ({
     .tadkbarBackground{
         height:100%;
         position: relative;
-        background: linear-gradient(90deg, rgba(46, 162, 90, 1)35%, rgba(163, 108, 147, 0.9)60%);
-        background: -moz-linear-gradient(90deg, rgba(46, 162, 90, 1)35%, rgba(163, 108, 147, 0.9)60%);
-        background: -webkit-linear-gradient(90deg, rgba(46, 162, 90, 1)35%, rgba(163, 108, 147, 0.9)60%);
-        background: -o-linear-gradient(90deg, rgba(46, 162, 90, 1)35%, rgba(163, 108, 147, 0.9)60%);
+        background-color: rgba(53, 252, 225, 0.7);
     }
     .tadkbarBackground .list{
         width:250px;
@@ -80,6 +88,35 @@ export default ({
         bottom:40px;
         border: 3px solid rgb(10, 88, 233);
     }
+    .tadkbarBackground .taskbar{
+        height: 100%;
+        display: flex;
+    }
+    .tadkbarBackground .taskbar .programList{
+         display: flex;
+         flex-wrap: nowrap;
+
+    }
+    .tadkbarBackground .taskbar .programList div:nth-child(1){
+        margin-left:15px ;
+    }
+    .tadkbarBackground .taskbar .programList div{
+         height: 100%;
+         line-height: 37px;
+         width:60px;
+         margin-left: 5px;
+         text-align: center;
+         border: 1px solid black;
+         border-radius:5px ;
+    }
+    .tadkbarBackground .taskbar .programList div i{
+        font-size: 30px;
+        padding-top: 2px;
+    }
+    .tadkbarBackground .taskbar .programList div:hover i{
+        color:rgb(207, 223, 66);
+    }
+
     button{
         border: none;
         width:100px;
@@ -103,13 +140,14 @@ export default ({
         color:rgb(31, 31, 194);
     }
     .time{
-        display: inline-block;
-        float:right;
+        /* display: inline-block; */
+        /* float:right; */
         /* background-color: blue; */
         height: 100%;
         line-height: 37px;
         margin-right: 3px;
         color:rgb(10, 88, 233);
         font-weight:bold ;
+        margin-left: auto;
     }
 </style>

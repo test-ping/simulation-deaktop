@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    programmedList:[],
+    RunningProgram:[],
   },
   mutations: {
     ADD_PROGRAMMED(state,payload){
-      state.programmedList.push(payload);
+      state.RunningProgram.push(payload);
     }
   },
   actions: {

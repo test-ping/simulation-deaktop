@@ -1,10 +1,10 @@
 <template>
     <div>
         <ul>
-            <li @click="openProgram('IE')">
+            <li @click="openProgram({key:'IE',icon:'fab fa-internet-explorer'})">
                 <i class="fab fa-internet-explorer"></i> internet-explorer 
             </li>
-            <li @click="openProgram('word')">
+            <li @click="openProgram({key:'word',icon:'fas fa-file-word'})">
                 <i class="fas fa-file-word"></i> 文字編輯器
             </li>
         </ul>
