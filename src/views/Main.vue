@@ -46,6 +46,9 @@ export default ({
         programmed(){
            return this.$store.state.RunningProgram; 
        },
+        zindex(){
+           return this.$store.state.zindex; 
+       }
     },
     mounted(){
         document.querySelectorAll('.programBox').forEach(e=>{
@@ -92,6 +95,7 @@ export default ({
                 data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
                 data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
                 data.showWindow = true;
+                data.zindex = this.zindex;
                 this.$store.commit('ADD_PROGRAM',data);
             }
             else{

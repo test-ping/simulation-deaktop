@@ -2,7 +2,7 @@
     <div>
         <p>{{windowName.name}}</p>
         <button @click='narrowWindow(windowName.key)'>－</button>
-        <button><i class="far fa-square"></i></button>
+        <button @click='enlarge(windowName.key)'><i class="far fa-square"></i></button>
         <button @click='closeWindow(windowName.key)'><i class="far fa-window-close"></i></button>
     </div>
 </template>
@@ -17,6 +17,9 @@ export default ({
         },
         narrowWindow(val){
             this.$store.commit('NARROW_WINDOW',val);
+        },
+        enlarge(val){
+            this.$store.commit('ENLARGE',val);
         }
     }
 })

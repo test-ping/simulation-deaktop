@@ -1,5 +1,5 @@
 <template>
-    <div :style='{width:containerData.width,height:containerData.height,left:containerData.left,top:containerData.top}' class='windowContainer'>
+    <div :style='{width:containerData.width,height:containerData.height,left:containerData.left,top:containerData.top, "z-index":containerData.zindex}' class='windowContainer' @click='windowSwitching()'>
         <Toolbar :windowName='{name:containerData.name,key:containerData.key}'></Toolbar>
         <div :is='containerData.key'></div>
     </div>
@@ -10,6 +10,17 @@ import Toolbar from '@/components/Toolbar.vue'
 import Music from '@/components/Music.vue'
 
 export default ({
+    methods:{
+        windowSwitching(data){
+            let index = this.programmed.map(e=>e.key).indexOf(this.containerData.key)
+            this.$store.commit('WINDOW_SWITCHING',index);
+        }
+    },
+    computed:{
+        programmed(){
+            return this.$store.state.RunningProgram; 
+        },
+    },
     components:{
         Toolbar,
         Music
@@ -22,7 +33,6 @@ export default ({
     .windowContainer{
         background-color: rgb(255, 255, 255);
         border: 3px solid blue;
-        /* border-radius:  15px; */
         position: fixed;
     }
 
