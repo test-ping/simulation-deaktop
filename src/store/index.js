@@ -8,8 +8,16 @@ export default new Vuex.Store({
     RunningProgram:[],
   },
   mutations: {
-    ADD_PROGRAMMED(state,payload){
+    ADD_PROGRAM(state,payload){
       state.RunningProgram.push(payload);
+    },
+    CLOSE_PROGRAM(state,payload){
+      let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload);
+      state.RunningProgram.splice(index,1);
+    },
+    NARROW_WINDOW(state,payload){
+      let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload);
+      state.RunningProgram[index].showWindow = false;
     }
   },
   actions: {

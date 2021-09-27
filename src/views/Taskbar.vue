@@ -56,7 +56,7 @@ export default ({
        openProgram(data){
            this.listState = false;
            if(this.programmed.filter(e=>e.key === data.key).length ===0){
-               this.$store.commit('ADD_PROGRAMMED',data);
+               this.$store.commit('ADD_PROGRAM',data);
            }
            else{
 
@@ -101,8 +101,8 @@ export default ({
         margin-left:15px ;
     }
     .tadkbarBackground .taskbar .programList div{
-         height: 100%;
-         line-height: 37px;
+         height: 35px;
+         line-height: 35px;
          width:60px;
          margin-left: 5px;
          text-align: center;

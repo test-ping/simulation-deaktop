@@ -1,23 +1,28 @@
 <template>
     <div id='main'>
-        <div v-for="item,index of program" class='programBox' :style="{top:item.initialPosition}" :id='item.key'>
+        <div v-for="item,index of program" class='programBox' :style="{top:item.initialPosition}" :id='item.key' @dblclick="openProgram({key:item.key,icon:item.icon,name:item.name})">
             <i :class='item.icon' ></i>
             <p>{{item.name}}</p>
         </div>
+        <template v-show='programmed.length!==0'>
+            <Window v-for='item of programmed' :containerData='item' v-show='item.showWindow'> </Window>
+        </template>
     </div>
     
 </template>
 
 <script>
+import Window from './Window.vue'
+
 
 export default ({
     data(){
         return{
             program:[
                 {name:'我的電腦',icon:'fas fa-laptop-code',key:'myComputer',initialPosition:'0px'},
-                {name:'音樂撥放器',icon:'fas fa-play-circle',key:'music',initialPosition:'95px'},   
+                {name:'音樂撥放器',icon:'fas fa-play-circle',key:'Music',initialPosition:'95px'},   
                 {name:'桌面設定',icon:'fas fa-cog',key:'setDesktop',initialPosition:'190px'},                
-                {name:'internet-explorer',icon:'fab fa-internet-explorer',key:'IE',initialPosition:'285px'},
+                {name:'網頁瀏覽器',icon:'fab fa-internet-explorer',key:'IE',initialPosition:'285px'},
                 {name:'文字編輯器',icon:'fas fa-file-word',key:'word',initialPosition:'380px'},
             ],
             mouse:{
@@ -36,6 +41,11 @@ export default ({
                 y:0
             },
         }
+    },
+    computed:{
+        programmed(){
+           return this.$store.state.RunningProgram; 
+       },
     },
     mounted(){
         document.querySelectorAll('.programBox').forEach(e=>{
@@ -66,13 +76,22 @@ export default ({
                     }); 
                 }
             })
-
-
-
             e.addEventListener('mouseup',this.mouseDrag);
         })
     },
     methods:{
+        openProgram(data){
+
+            data.width = '800px';
+            data.height = '400px';
+            data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
+            data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
+            data.showWindow = true;
+
+
+
+            this.$store.commit('ADD_PROGRAM',data);
+        },
         mouseDrag(){
             if(this.mousedown && this.node){
                     if(this.windowListener){
@@ -107,7 +126,11 @@ export default ({
                     this.node = null;
                 }
         }
+    },
+    components:{
+        Window,
     }
+
 })
 </script>
 
