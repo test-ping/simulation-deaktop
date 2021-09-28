@@ -42,8 +42,7 @@ export default ({
 #app #main{
   width:100%;
   height: calc(100% - 40px);
-  background: url('./assets/background.jpg');
-  background-position: center center;
+
 }
 #app #taskbar{
   width:100%;

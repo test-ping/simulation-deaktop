@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     RunningProgram:[],
     zindex:0,
+    background:'url(' + require('@/assets/background.jpg') + ')',
   },
   mutations: {
     ADD_PROGRAM(state,payload){
@@ -27,17 +28,21 @@ export default new Vuex.Store({
       state.zindex++;
     },
     WINDOW_SWITCHING(state,payload){
-      state.RunningProgram[payload].zindex = state.zindex;
-      state.zindex++;
+      if(state.RunningProgram[payload]){
+        state.RunningProgram[payload].zindex = state.zindex;
+        state.zindex++;
+      }
     },
     ENLARGE(state,payload){
        let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload);
        state.RunningProgram[index].left = '0px';
        state.RunningProgram[index].top = '0px';
-       console.log(document.body.offsetWidth)
        state.RunningProgram[index].width = document.body.offsetWidth + 'px';
        state.RunningProgram[index].height = document.body.offsetHeight - 43 +'px';
-    }
+    },
+    CHANGE_BACKGROUND(state,payload){
+        state.background = payload;
+    },
 
   },
   actions: {

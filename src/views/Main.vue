@@ -1,5 +1,6 @@
 <template>
-    <div id='main'>
+    <div id='main' :style='{backgroundImage:background}'>
+        <!-- ../assets/background.jpg -->
         <div v-for="item,index of program" class='programBox' :style="{top:item.initialPosition}" :id='item.key' @dblclick="openProgram({key:item.key,icon:item.icon,name:item.name})">
             <i :class='item.icon' ></i>
             <p>{{item.name}}</p>
@@ -48,6 +49,9 @@ export default ({
        },
         zindex(){
            return this.$store.state.zindex; 
+       },
+        background(){
+            return this.$store.state.background; 
        }
     },
     mounted(){
@@ -148,6 +152,8 @@ export default ({
 <style scoped>
     #main{
         height:100% !important;
+        /* background: url('../assets/background.jpg'); */
+        background-position: center center;
     }
     .programBox{
         width:100px;

@@ -1,13 +1,15 @@
 <template>
     <div :style='{width:containerData.width,height:containerData.height,left:containerData.left,top:containerData.top, "z-index":containerData.zindex}' class='windowContainer' @click='windowSwitching()'>
         <Toolbar :windowName='{name:containerData.name,key:containerData.key}'></Toolbar>
-        <div :is='containerData.key'></div>
+        <div :is='containerData.key' :windowData='containerData'></div>
     </div>
 </template>
 
 <script>
 import Toolbar from '@/components/Toolbar.vue'
 import Music from '@/components/Music.vue'
+import setDesktop from '@/components/setDesktop.vue'
+
 
 export default ({
     methods:{
@@ -23,7 +25,8 @@ export default ({
     },
     components:{
         Toolbar,
-        Music
+        Music,
+        setDesktop
     },
     props:['containerData'],
 })
@@ -34,6 +37,8 @@ export default ({
         background-color: rgb(255, 255, 255);
         border: 3px solid blue;
         position: fixed;
+        /* overflow: scroll;
+        overflow-x:hidden; */
     }
 
 </style>
