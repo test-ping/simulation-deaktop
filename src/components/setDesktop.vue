@@ -22,7 +22,6 @@ export default ({
                 {url:'url(' + require('@/assets/background2.jpg') + ')',key:2,select:false},
                 {url:'url(' + require('@/assets/background3.jpg') + ')',key:3,select:false}
             ],
-            
         }
     },
     methods:{

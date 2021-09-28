@@ -8,6 +8,7 @@ export default new Vuex.Store({
     RunningProgram:[],
     zindex:0,
     background:'url(' + require('@/assets/background.jpg') + ')',
+    inputWord:'',
   },
   mutations: {
     ADD_PROGRAM(state,payload){
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     CHANGE_BACKGROUND(state,payload){
         state.background = payload;
     },
+    UPDATE_WORD(state,payload){
+      state.inputWord = payload;
+    }
 
   },
   actions: {

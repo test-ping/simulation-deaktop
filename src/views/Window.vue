@@ -9,6 +9,7 @@
 import Toolbar from '@/components/Toolbar.vue'
 import Music from '@/components/Music.vue'
 import setDesktop from '@/components/setDesktop.vue'
+import Word from '@/components/Word.vue'
 
 
 export default ({
@@ -26,7 +27,8 @@ export default ({
     components:{
         Toolbar,
         Music,
-        setDesktop
+        setDesktop,
+        Word
     },
     props:['containerData'],
 })
