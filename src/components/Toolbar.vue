@@ -20,7 +20,7 @@ export default ({
                 left:0,
                 top:0
             },
-            startLeave:false,
+            startLeave:null,
         }
     },
     props:['windowData'],
@@ -76,6 +76,7 @@ export default ({
         background-color: dodgerblue;
         display: flex;
         justify-content: right;
+        user-select: none;
     }
     div p{
         margin-right:auto ;
