@@ -17,9 +17,10 @@ export default ({
             mouseDown:false,
             startDrag:false,
             startWindowPosition:{
-                x:0,
-                y:0
-            }
+                left:0,
+                top:0
+            },
+            startLeave:false,
         }
     },
     props:['windowData'],
@@ -42,20 +43,28 @@ export default ({
         startDragHandler(e){
             if(this.mouseDown){
                 this.startDrag = true;
-                this.startWindowPosition.x = this.windowData.left;
-                this.startWindowPosition.y = this.windowData.top;
+                this.startWindowPosition.left = this.windowData.left;
+                this.startWindowPosition.top = this.windowData.top;
             }
         },
         dragHandler(e){
             if(this.mouseDown && this.startDrag){
-                this.$store.commit('WINDOW_MOVE',{key:this.windowData.key,left:e.pageX,top:e.pageY})
+                if(this.startLeave){
+                    this.$store.commit('WINDOW_MOVE',{key:this.windowData.key,left:e.pageX -this.startLeave ,top:e.pageY});
+                }
+                else{
+                    this.$store.commit('WINDOW_MOVE',{key:this.windowData.key,left:e.pageX-e.offsetX ,top:e.pageY});
+                    this.startLeave = e.offsetX;
+                }
+
             }
         },
         stopDragHandler(e){
             this.mouseDown = false;
             this.startDrag = false;
+            this.startLeave  = null;
             window.removeEventListener('mousemove', this.dragHandler);
-            window.removeEventListener('mouseup', this.endDragHandler);
+            window.removeEventListener('mouseup', this.stopDragHandler);
         }
     }
 })
