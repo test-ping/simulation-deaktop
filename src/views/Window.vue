@@ -1,6 +1,6 @@
 <template>
     <div :style='{width:containerData.width,height:containerData.height,left:containerData.left,top:containerData.top, "z-index":containerData.zindex}' class='windowContainer' @click='windowSwitching()'>
-        <Toolbar :windowName='{name:containerData.name,key:containerData.key}'></Toolbar>
+        <Toolbar :windowData='{name:containerData.name,key:containerData.key,left:containerData.left,top:containerData.top}'></Toolbar>
         <div :is='containerData.key' :windowData='containerData'></div>
     </div>
 </template>

@@ -34,6 +34,11 @@ export default new Vuex.Store({
         state.zindex++;
       }
     },
+    WINDOW_MOVE(state,payload){
+      let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload.key);
+      state.RunningProgram[index].left = payload.left + 'px';
+      state.RunningProgram[index].top = payload.top + 'px';
+    },
     ENLARGE(state,payload){
        let index = state.RunningProgram.map(e=>{return e.key}).indexOf(payload);
        state.RunningProgram[index].left = '0px';

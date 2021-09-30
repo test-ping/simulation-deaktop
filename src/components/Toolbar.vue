@@ -1,16 +1,28 @@
 <template>
-    <div>
-        <p>{{windowName.name}}</p>
-        <button @click='narrowWindow(windowName.key)'>－</button>
-        <button @click='enlarge(windowName.key)'><i class="far fa-square"></i></button>
-        <button @click='closeWindow(windowName.key)'><i class="far fa-window-close"></i></button>
+    <div @mousedown.self='mouseDownHandler($event)' @mouseleave.self="startDragHandler($event)">
+        <p>{{windowData.name}}</p>
+        <button @click='narrowWindow(windowData.key)'>－</button>
+        <button @click='enlarge(windowData.key)'><i class="far fa-square"></i></button>
+        <button @click='closeWindow(windowData.key)'><i class="far fa-window-close"></i></button>
     </div>
 </template>
 
 <script>
 
+
+
 export default ({
-    props:['windowName'],
+    data(){
+        return{
+            mouseDown:false,
+            startDrag:false,
+            startWindowPosition:{
+                x:0,
+                y:0
+            }
+        }
+    },
+    props:['windowData'],
     methods:{
         closeWindow(val){
             this.$store.commit('CLOSE_PROGRAM',val);
@@ -20,6 +32,30 @@ export default ({
         },
         enlarge(val){
             this.$store.commit('ENLARGE',val);
+        },
+        mouseDownHandler(e){
+            this.mouseDown = true;
+            window.addEventListener('mousemove', this.dragHandler);
+            window.addEventListener('mouseup', this.stopDragHandler);
+            document.body.addEventListener('mouseleave', this.stopDragHandler);
+        },
+        startDragHandler(e){
+            if(this.mouseDown){
+                this.startDrag = true;
+                this.startWindowPosition.x = this.windowData.left;
+                this.startWindowPosition.y = this.windowData.top;
+            }
+        },
+        dragHandler(e){
+            if(this.mouseDown && this.startDrag){
+                this.$store.commit('WINDOW_MOVE',{key:this.windowData.key,left:e.pageX,top:e.pageY})
+            }
+        },
+        stopDragHandler(e){
+            this.mouseDown = false;
+            this.startDrag = false;
+            window.removeEventListener('mousemove', this.dragHandler);
+            window.removeEventListener('mouseup', this.endDragHandler);
         }
     }
 })
