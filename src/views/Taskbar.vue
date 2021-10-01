@@ -28,14 +28,16 @@ export default ({
         this.time =  (new Date().getFullYear() + '/' + (new Date().getMonth() >= 10 ? new Date().getMonth() : '0' + new Date().getMonth() ) + '/' 
            + (new Date().getDate()>=10 ? new Date().getDate() : '0' + new Date().getDate()) + ' ' 
            + (new Date().getHours()>=10 ? new Date().getHours(): '0' + new Date().getHours()) +':' 
-           + (new Date().getMinutes()>=10 ? new Date().getMinutes(): '0'+new Date().getMinutes()) +':' 
-           + (new Date().getSeconds() >=10 ? new Date().getSeconds():'0'+new Date().getSeconds()));   
+           + (new Date().getMinutes()>=10 ? new Date().getMinutes(): '0'+new Date().getMinutes()) 
+        //    +':' + (new Date().getSeconds() >=10 ? new Date().getSeconds():'0'+new Date().getSeconds())
+           );   
        setInterval(()=>{
            this.time =  (new Date().getFullYear() + '/' + (new Date().getMonth() >= 10 ? new Date().getMonth() : '0' + new Date().getMonth() ) + '/' 
            + (new Date().getDate()>=10 ? new Date().getDate() : '0' + new Date().getDate()) + ' ' 
            + (new Date().getHours()>=10 ? new Date().getHours(): '0' + new Date().getHours()) +':' 
-           + (new Date().getMinutes()>=10 ? new Date().getMinutes(): '0'+new Date().getMinutes()) +':' 
-           + (new Date().getSeconds() >=10 ? new Date().getSeconds():'0'+new Date().getSeconds()));
+           + (new Date().getMinutes()>=10 ? new Date().getMinutes(): '0'+new Date().getMinutes()) 
+        //    +':' + (new Date().getSeconds() >=10 ? new Date().getSeconds():'0'+new Date().getSeconds())
+           );
        },1000);
    },
    data(){
@@ -54,6 +56,7 @@ export default ({
            }
        },
        openProgram(data){
+            document.querySelector('#clickSE').play();
             this.listState = false;
 
             let index =null;
@@ -75,6 +78,7 @@ export default ({
 
        },
        toogleProgram(data){
+           document.querySelector('#clickSE').play();
            let index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
            if(this.programmed[index].showWindow){
                this.$store.commit('NARROW_WINDOW',data.key)

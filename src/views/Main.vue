@@ -57,6 +57,7 @@ export default ({
     mounted(){
         document.querySelectorAll('.programBox').forEach(e=>{
             e.addEventListener('mousedown',e=>{
+                document.querySelector('#clickSE').play();
                 this.mouse.x = e.screenX;
                 this.mouse.y = e.screenY;
                 this.mousedown = true;
@@ -89,6 +90,7 @@ export default ({
     methods:{
         openProgram(data){
             let index =null;
+            document.querySelector('#clickSE').play();
             if(this.programmed.length!==0){
                 index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
                 // console.log(index);

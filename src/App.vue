@@ -6,14 +6,19 @@
     <div id='taskbar'>
       <Taskbar></Taskbar>
     </div>
+    <audio src="@/assets/SE/click.mp3" id='clickSE'></audio>
   </div>
 </template>
 
 <script>
 import MainDesktop from '@/views/Main.vue';
-
 import Taskbar from '@/views/Taskbar.vue';
 export default ({
+    mounted(){
+        // window.addEventListener('click',()=>{
+        //     document.querySelector('#clickSE').play();
+        // });
+    },
   methods:{
     // add(){
     //   this.$store.commit('ADD_PROGRAMMED', Math.random());

@@ -26,15 +26,19 @@ export default ({
     props:['windowData'],
     methods:{
         closeWindow(val){
+            document.querySelector('#clickSE').play();
             this.$store.commit('CLOSE_PROGRAM',val);
         },
         narrowWindow(val){
+            document.querySelector('#clickSE').play();
             this.$store.commit('NARROW_WINDOW',val);
         },
         enlarge(val){
+            document.querySelector('#clickSE').play();
             this.$store.commit('ENLARGE',val);
         },
         mouseDownHandler(e){
+            document.querySelector('#clickSE').play();
             this.mouseDown = true;
             window.addEventListener('mousemove', this.dragHandler);
             window.addEventListener('mouseup', this.stopDragHandler);

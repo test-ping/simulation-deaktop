@@ -31,9 +31,10 @@ export default ({
                 this.images[index].select = false;
             }
             this.images[key-1].select = true;
-
+            document.querySelector('#clickSE').play();
         },
         buttonHandler(){
+            document.querySelector('#clickSE').play();
             let index = this.images.map(e=>e.select).indexOf(true);
             if(index !== -1){
                 this.$store.commit('CHANGE_BACKGROUND',this.images[index].url);

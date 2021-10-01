@@ -14,6 +14,7 @@ import IE from '@/components/IE.vue'
 
 
 export default ({
+
     methods:{
         windowSwitching(data){
             let index = this.programmed.map(e=>e.key).indexOf(this.containerData.key)
