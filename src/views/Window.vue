@@ -11,6 +11,7 @@ import Music from '@/components/Music.vue'
 import setDesktop from '@/components/setDesktop.vue'
 import Word from '@/components/Word.vue'
 import IE from '@/components/IE.vue'
+import myComputer from '@/components/myComputer.vue'
 
 
 export default ({
@@ -31,7 +32,8 @@ export default ({
         Music,
         setDesktop,
         Word,
-        IE
+        IE,
+        myComputer
     },
     props:['containerData'],
 })
