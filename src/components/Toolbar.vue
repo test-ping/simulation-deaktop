@@ -34,6 +34,10 @@ export default ({
             this.$store.commit('NARROW_WINDOW',val);
         },
         enlarge(val){
+            if(val === 'Music') {
+                document.querySelector('#errorSE').play();
+                return;
+            }
             document.querySelector('#clickSE').play();
             this.$store.commit('ENLARGE',val);
         },

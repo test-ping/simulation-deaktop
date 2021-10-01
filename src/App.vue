@@ -7,6 +7,7 @@
       <Taskbar></Taskbar>
     </div>
     <audio src="@/assets/SE/click.mp3" id='clickSE'></audio>
+    <audio src="@/assets/SE/error.mp3" id='errorSE'></audio>
   </div>
 </template>
 

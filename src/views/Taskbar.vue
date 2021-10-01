@@ -64,8 +64,14 @@ export default ({
                 index = this.programmed.map(e=>{return e.key}).indexOf(data.key);
             }
             if(index === -1 || index === null){
-                data.width = '800px';
-                data.height = '400px';
+                if(data.key === 'Music'){
+                    data.width = '360px';
+                    data.height = '150px';
+                }
+                else{
+                    data.width = '800px';
+                    data.height = '400px';
+                }
                 data.left = Math.floor(Math.random() * document.body.offsetWidth)/2+'px';
                 data.top = Math.floor(Math.random() * document.body.offsetHeight)/2 +'px';
                 data.showWindow = true;
